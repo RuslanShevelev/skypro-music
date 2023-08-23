@@ -5,23 +5,38 @@
 }
 
 .filter__button {
+  color: #fff;
+  font-family: 'StratosSkyeng', sans-serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  font-size: 16px;
-  line-height: 24px;
-  color: white;
+  line-height: 18px; /* 112.5% */
+  letter-spacing: 0.016px;
   background: transparent;
   border: 1px solid #ffffff;
   border-radius: 60px;
   padding: 6px 20px;
-  width: 144px;
 }
-
+._btn-text:hover {
+  border-color: #d9b6ff;
+  color: #d9b6ff;
+  cursor: pointer;
+}
+._btn-text:active {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
+.btn_active {
+  border-color: #ad61ff;
+  color: #ad61ff;
+  cursor: pointer;
+}
 .filter-category:not(:last-child) {
   margin-right: 10px;
 }
 .filter__popup {
-  height: 305px;
+  max-height: 305px;
   width: 248px;
   display: inline-flex;
   padding: 34px;
@@ -42,12 +57,21 @@
   gap: 28px;
   color: #fff;
   font-variant-numeric: lining-nums proportional-nums;
-  font-family: StratosSkyeng;
+  font-family: 'StratosSkyeng', sans-serif;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 120% */
-  overflow-y: scroll;
+  overflow-y: auto;
+}
+.filter__item {
+  font-family: 'StratosSkyeng', sans-serif;
+  color: #fff;
+  font-variant-numeric: lining-nums proportional-nums;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px; /* 120% */
 }
 .filter__item:hover {
   color: #b672ff;

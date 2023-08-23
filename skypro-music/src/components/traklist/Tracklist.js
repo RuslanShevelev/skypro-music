@@ -1,9 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 // import { useState } from 'react';
-import './CSS/Tracklist.css'
-import GetTrack from './Track'
-import Filter from './Filter'
+import './Tracklist.css';
+import GetTrack from './Track';
+import Filter from '../filter/Filter';
 
 export default function TrackList({ tracks }) {
   return (

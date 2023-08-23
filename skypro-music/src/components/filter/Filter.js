@@ -1,6 +1,7 @@
-import { useState } from 'react'
-import FilterCategory from './FilterButton'
-import { tracks } from '../data'
+import { useState } from 'react';
+import FilterCategory from './FilterButton';
+import { tracks } from '../../data';
+import './filter.css';
 
 export default function Filter() {
   const [activeCategory, setActiveCategory] = useState('')

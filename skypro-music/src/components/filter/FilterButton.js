@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import './CSS/filter.css'
+import './filterButton.css'
 
 export default function FilterCategory({
   title,
@@ -7,22 +6,21 @@ export default function FilterCategory({
   isActive,
   setActive,
 }) {
-  const [visible, setVisible] = useState(false)
-  const toggleVisibility = () => setVisible(!visible)
-
+  const toggleVisibility = () => setActive(isActive === title ? '' : title)
   return (
     <div className="filter-category">
       <button
         type="button"
-        className="filter__button button-author _btn-text"
-        onClick={() => {
-          setActive(title)
-          toggleVisibility()
-        }}
+        onClick={toggleVisibility}
+        className={
+          isActive === title
+            ? 'filter__button btn_active'
+            : 'filter__button _btn-text'
+        }
       >
         {title}
       </button>
-      {isActive === title && visible && (
+      {isActive === title && (
         <div className="filter__popup menu">
           <ul className="filter__list">{content}</ul>
         </div>

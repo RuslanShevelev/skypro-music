@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import './CSS/NavMenu.css';
+import './NavMenu.css';
 import { useState } from 'react';
 
 export default function Navigation() {

@@ -1,5 +1,5 @@
-import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import './CSS/AudioPlayer.css'
+import Skeleton, { SkeletonTheme } from 'react-loading-skeleton';
+import './AudioPlayer.css';
 
 export default function Player({ prop }) {
   return (

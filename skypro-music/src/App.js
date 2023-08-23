@@ -1,10 +1,10 @@
-import './App.css'
-import { useEffect, useState } from 'react'
-import { tracks, playLists } from './data'
-import Navigation from './components/NavMenu'
-import Player from './components/AudioPlayer'
-import Sidebar from './components/Sidebar'
-import TrackList from './components/Tracklist'
+import './App.css';
+import { useEffect, useState } from 'react';
+import { tracks, playLists } from './data';
+import Navigation from './components/navmenu/NavMenu';
+import Player from './components/player/AudioPlayer';
+import Sidebar from './components/sidebar/Sidebar';
+import TrackList from './components/traklist/Tracklist';
 
 function App() {
   const [content, setContent] = useState({})
