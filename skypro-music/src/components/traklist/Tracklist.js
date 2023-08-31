@@ -1,45 +1,45 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 // import { useState } from 'react';
-import './Tracklist.css';
-import GetTrack from './Track';
-import Filter from '../filter/Filter';
+import * as S from './Tracklist.styles'
+import GetTrack from './Track'
+import Filter from '../filter/Filter'
 
 export default function TrackList({ tracks }) {
   return (
-    <div className="main__centerblock centerblock">
-      <div className="centerblock__search search">
-        <svg className="search__svg">
+    <S.mainCentalBlock>
+      <S.centalBlockSearch className="search">
+        <S.searchSvg>
           <use xlinkHref="img/icon/sprite.svg#icon-search" />
-        </svg>
-        <input
+        </S.searchSvg>
+        <S.searchText
           className="search__text"
           type="search"
           placeholder="Поиск"
           name="search"
         />
-      </div>
-      <h2 className="centerblock__h2">Треки</h2>
+      </S.centalBlockSearch>
+      <S.centalBlockH2>Треки</S.centalBlockH2>
       <Filter />
-      <div className="centerblock__content">
-        <div className="content__title playlist-title">
-          <div className="playlist-title__col col01">Трек</div>
-          <div className="playlist-title__col col02">ИСПОЛНИТЕЛЬ</div>
-          <div className="playlist-title__col col03">АЛЬБОМ</div>
-          <div className="playlist-title__col col04">
-            <svg className="playlist-title__svg" alt="time">
+      <S.centalBlockContent>
+        <S.contentTitle className="playlist-title">
+          <S.playlistTitleCol01>Трек</S.playlistTitleCol01>
+          <S.playlistTitleCol02>ИСПОЛНИТЕЛЬ</S.playlistTitleCol02>
+          <S.playlistTitleCol03>АЛЬБОМ</S.playlistTitleCol03>
+          <S.playlistTitleCol04>
+            <S.playlistTitleSvg alt="time">
               <use xlinkHref="img/icon/sprite.svg#icon-watch" />
-            </svg>
-          </div>
-        </div>
-        <ul className="content__playlist playlist">
+            </S.playlistTitleSvg>
+          </S.playlistTitleCol04>
+        </S.contentTitle>
+        <S.contentPlaylist className="playlist">
           {tracks
             ? tracks.map((track) => GetTrack(track))
             : Array(10)
                 .fill()
                 .map(() => GetTrack())}
-        </ul>
-      </div>
-    </div>
+        </S.contentPlaylist>
+      </S.centalBlockContent>
+    </S.mainCentalBlock>
   )
 }
