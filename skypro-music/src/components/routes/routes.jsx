@@ -1,4 +1,4 @@
-import { useState } from 'react'
+// import { useState } from 'react'
 import { useRoutes } from 'react-router-dom'
 import ProtectedRoute from './protected-route'
 import Main from '../../pages/main/main'
@@ -9,22 +9,22 @@ import NotFound from '../../pages/notfound/notfound'
 import Categories from '../../pages/category/category'
 
 const AppRoutes = () => {
-  const [user, setUser] = useState(() => {
-    try {
-      return JSON.parse(window.localStorage.getItem('user'))
-    } catch (error) {
-      return null
-    }
-  })
+  // const [user, setUser] = useState(() => {
+  //   try {
+  //     return JSON.parse(localStorage.getItem('user'))
+  //   } catch (error) {
+  //     return null
+  //   }
+  // })
   const handleLogin = (data) => {
     localStorage.setItem('user', JSON.stringify(data))
-    setUser(JSON.parse(localStorage.getItem('user')))
+    // setUser(JSON.parse(localStorage.getItem('user')))
   }
   const element = useRoutes([
     { path: '/login', element: <SignIn onAuthButtonClick={handleLogin} /> },
     { path: '/signup', element: <SignUp /> },
     {
-      element: <ProtectedRoute isAllowed={Boolean(user)} />,
+      element: <ProtectedRoute isAllowed={Boolean(JSON.parse(localStorage.getItem('user')))} />,
       children: [
         { path: '/', element: <Main /> },
         { path: '/favorites', element: <Favorites /> },
