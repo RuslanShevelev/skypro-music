@@ -2,19 +2,19 @@
     margin: 0;
     padding: 0;
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+            box-sizing: border-box;
   }
   
   *:before,
   *:after {
     -webkit-box-sizing: border-box;
-    box-sizing: border-box;
+            box-sizing: border-box;
   }
   
   a,
   a:visited {
     text-decoration: none;
-    font-family: "StratosSkyeng", sans-serif;
+    font-family: 'StratosSkyeng', sans-serif;
     cursor: pointer;
   }
   
@@ -28,11 +28,8 @@
   }
   
   @font-face {
-    font-family: "StratosSkyeng";
-    src: local("StratosSkyeng"), local("StratosSkyeng"),
-      url("../../../public/fonts/StratosSkyeng.woff2") format("woff2"),
-      url("../../../public/fonts/StratosSkyeng.woff") format("woff");
-      /* url("../fonts/StratosSkyeng.ttf") format("truetype"); */
+    font-family: 'StratosSkyeng';
+    src: local("StratosSkyeng"), local("StratosSkyeng"), url("../../../public/fonts/StratosSkyeng.woff2") format("woff2"), url("../../../public/fonts/StratosSkyeng.woff") format("woff");
     font-weight: 400;
     font-style: normal;
   }
@@ -41,7 +38,7 @@
   body {
     width: 100%;
     height: 100%;
-    font-family: "StratosSkyeng", sans-serif;
+    font-family: 'StratosSkyeng', sans-serif;
   }
   
   .wrapper {
@@ -50,7 +47,7 @@
     overflow: hidden;
   }
   
-  .container-enter {
+  .container-signup {
     max-width: 100%;
     height: 100vh;
     margin: 0 auto;
@@ -58,46 +55,38 @@
     background-color: rgba(0, 0, 0, 0.85);
   }
   
-  .modal__btn-enter:hover {
-    background-color: #3f007d;
+  .modal__btn-signup-ent:hover {
+    background-color: #3F007D;
   }
   
-  .modal__btn-signup:hover {
-    background-color: #f4f5f6;
-  }
-  
-  .modal__btn-enter:active {
-    background-color: #271a58;
-  }
-  
-  .modal__btn-signup:active {
-    background-color: #d9d9d9;
+  .modal__btn-signup-ent:active {
+    background-color: #271A58;
   }
   
   .modal__block {
     position: absolute;
     z-index: 2;
-    left: calc(50% - (366px / 2));
-    top: calc(50% - (439px / 2));
+    left: calc(50% - (366px/2));
+    top: calc(50% - (439px/2));
     opacity: 1;
   }
   
   .modal__form-login {
     width: 366px;
     height: 439px;
-    background-color: #ffffff;
+    background-color: #FFFFFF;
     border-radius: 12px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
+        -ms-flex-direction: column;
+            flex-direction: column;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: 43px 47px 47px 40px;
+        -ms-flex-align: center;
+            align-items: center;
+    padding: 43px 44px 47px 40px;
   }
   
   .modal__form-login input:first-child {
@@ -121,8 +110,10 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom: 1px solid #d0cece;
+    border-bottom: 1px solid #D0CECE;
     padding: 8px 1px;
+    margin-right: 3px;
+    margin-bottom: 30px;
   }
   
   .modal__input::-webkit-input-placeholder {
@@ -131,7 +122,7 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
-    color: #d0cece;
+    color: #D0CECE;
   }
   
   .modal__input:-ms-input-placeholder {
@@ -140,7 +131,7 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
-    color: #d0cece;
+    color: #D0CECE;
   }
   
   .modal__input::-ms-input-placeholder {
@@ -149,7 +140,7 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
-    color: #d0cece;
+    color: #D0CECE;
   }
   
   .modal__input::placeholder {
@@ -158,29 +149,29 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
-    color: #d0cece;
+    color: #D0CECE;
   }
   
-  .modal__btn-enter {
+  .modal__btn-signup-ent {
     width: 278px;
-    height: 52px;
-    background-color: #580ea2;
+    height: 62px;
+    background-color: #580EA2;
     border-radius: 6px;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    margin-left: 4px;
     border: none;
+    margin-top: 30px;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   
-  .modal__btn-enter a {
+  .modal__btn-signup-ent a {
     width: 100%;
     height: 100%;
     font-style: normal;
@@ -188,62 +179,17 @@
     font-size: 18px;
     line-height: 24px;
     letter-spacing: -0.05px;
-    color: #ffffff;
+    color: #FFFFFF;
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+        -ms-flex-align: center;
+            align-items: center;
     -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
   
-  .modal__btn-signup {
-    width: 278px;
-    height: 52px;
-    background-color: transparent;
-    border: 1px solid #d0cece;
-    border-radius: 6px;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -0.05px;
-    color: #000000;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
+  .modal {
   }
-  
-  .modal__btn-signup a {
-    width: 100%;
-    height: 100%;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -0.05px;
-    color: #000000;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-  }
-  
-  .login {
-    margin-bottom: 30px;
-  }
-  
