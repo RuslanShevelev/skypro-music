@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/media-has-caption */
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import ButtonSVG from '../buttonSVG/ButtonSVG'
 import * as S from './Player.styles'
@@ -53,6 +54,7 @@ export default function Player({ prop }) {
                 <ButtonSVG name="dislike" />
               </S.trackPlayLikeDis>
             </S.playerTrackPlay>
+           {prop && ( <audio controls src={prop.track_file}>{' '}</audio>)}
           </S.barPlayer>
           <S.barVolumeBlock>
             <S.volumeContent>
