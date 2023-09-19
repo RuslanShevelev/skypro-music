@@ -46,7 +46,7 @@ function Main() {
                 error={error}
               />
               {!error && <Sidebar array={content.sidebar} />}
-              {currentTrack && <Player prop={currentTrack} />}
+              {currentTrack && <Player prop={currentTrack} setTrack={setCurrentTruck}/>}
             </>
           )}
         </S.main>
