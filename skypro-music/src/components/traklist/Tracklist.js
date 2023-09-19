@@ -2,10 +2,10 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 // import { useState } from 'react';
 import * as S from './Tracklist.styles'
-import GetTrack from './Track'
 import Filter from '../filter/Filter'
+import TrackListContent from './Track'
 
-export default function TrackList({ tracks, title }) {
+export default function TrackList({ tracks, setTrack, title, error }) {
   return (
     <S.mainCentalBlock>
       <S.centalBlockSearch className="search">
@@ -20,10 +20,10 @@ export default function TrackList({ tracks, title }) {
         />
       </S.centalBlockSearch>
       <S.centalBlockH2>{title || 'Треки'}</S.centalBlockH2>
-      {!title &&(<Filter />)}
+      {!title && <Filter />}
       <S.centalBlockContent>
         <S.contentTitle className="playlist-title">
-          <S.playlistTitleCol01>Трек</S.playlistTitleCol01>
+          <S.playlistTitleCol01>ТРЕК</S.playlistTitleCol01>
           <S.playlistTitleCol02>ИСПОЛНИТЕЛЬ</S.playlistTitleCol02>
           <S.playlistTitleCol03>АЛЬБОМ</S.playlistTitleCol03>
           <S.playlistTitleCol04>
@@ -33,11 +33,13 @@ export default function TrackList({ tracks, title }) {
           </S.playlistTitleCol04>
         </S.contentTitle>
         <S.contentPlaylist className="playlist">
-          {tracks
-            ? tracks.map((track) => GetTrack(track))
-            : Array(10)
-                .fill()
-                .map(() => GetTrack())}
+          {error && <p style={{ color: 'red' }}>Не удалось загрузить плейлист, попробуйте позже: {error}</p>}
+          {!error &&
+            (tracks ? (
+              <TrackListContent tracks={tracks} setTrack={setTrack} />
+            ) : (
+              <TrackListContent />
+            ))}
         </S.contentPlaylist>
       </S.centalBlockContent>
     </S.mainCentalBlock>
