@@ -11,3 +11,4 @@ export async function getTracks() {
   const data = await response.json()
   return data
 }
+
