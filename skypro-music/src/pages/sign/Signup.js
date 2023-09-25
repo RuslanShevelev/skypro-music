@@ -7,31 +7,27 @@ import { getRegistration } from '../../api/userapi'
 import { AuthContext } from '../../components/context/context'
 
 export const SignUp = () => {
-  const {setIsAuth} = useContext(AuthContext)
   const [registrationData, setRegistrationData] = useState(null)
-  const [apiErrors, setApiErrors] = useState(false)
   const [errors, setErrors] = useState(false)
   const navigate = useNavigate()
-
+  const { setIsAuth } = useContext(AuthContext)
 
   const [fetchNewUser, loading, error] = useFetching(async (regData) => {
-    const resp = await getRegistration(regData, setApiErrors)
-    if (apiErrors) {
-      setErrors(resp)
+    const resp = await getRegistration(regData)
+    const respData = await resp.json()
+    if (!resp.ok) {
+      setErrors(respData)
+      throw new Error('Ошибка регистрации')
     } else {
-      setIsAuth(resp)
-      localStorage.setItem('auth', JSON.stringify(resp))
-     navigate('/', { replace: true })
+      setIsAuth(respData)
+      localStorage.setItem('auth', JSON.stringify(respData))
+      navigate('/', { replace: true })
     }
-    setApiErrors(false)
   })
-
-  // console.log(user)
 
   useEffect(() => {
     if (registrationData) fetchNewUser(registrationData)
   }, [registrationData])
-
 
   return (
     <S.wrapper>
@@ -42,12 +38,11 @@ export const SignUp = () => {
             setData={setRegistrationData}
             apiErrors={errors}
             loading={loading}
-
           />
           {loading && <div>Выполняется загрузка</div>}
           {error && (
             <div style={{ color: 'red', textAlign: 'center' }}>
-              Произошла ошибка: {error}, попробуйте позже
+              Произошла ошибка: {error}
             </div>
           )}
         </S.modalBlock>

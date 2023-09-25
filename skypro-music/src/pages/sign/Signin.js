@@ -9,25 +9,25 @@ import { AuthContext } from '../../components/context/context'
 
 export default function SignIn() {
   const [loginData, setLoginData] = useState(null)
-  const [apiErrors, setApiErrors] = useState(false)
   const [errors, setErrors] = useState(false)
   const navigate = useNavigate()
-
   const { setIsAuth } = useContext(AuthContext)
   const [loginUser, loading, error] = useFetching(async (logData) => {
-    const resp = await getRegistration(logData, setApiErrors, 'login')
-    if (apiErrors) {
-      setErrors(resp)
+    const resp = await getRegistration(logData, 'login')
+    const respData = await resp.json()
+    if (!resp.ok) {
+      setErrors(respData)
+      throw new Error('Ошибка авторизации')
     } else {
-      setIsAuth(resp)
-      localStorage.setItem('auth', JSON.stringify(resp))
+      setIsAuth(respData)
+      localStorage.setItem('auth', JSON.stringify(respData))
       navigate('/', { replace: true })
     }
-    setApiErrors(false)
   })
   useEffect(() => {
-    if (loginData)     loginUser(loginData)
+    if (loginData) loginUser(loginData)
   }, [loginData])
+
   return (
     <S.wrapper>
       <S.containerEnter>
@@ -40,7 +40,7 @@ export default function SignIn() {
           {loading && <div>Выполняется загрузка</div>}
           {error && (
             <div style={{ color: 'red', textAlign: 'center' }}>
-              Произошла ошибка: {error}, попробуйте позже
+              Произошла ошибка: {error}
             </div>
           )}
         </S.modalBlock>
