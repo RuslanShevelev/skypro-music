@@ -48,6 +48,6 @@ export default function SignIn() {
     </S.wrapper>
   )
 }
-export function saveUserToLocalStorage(user) {
-  window.localStorage.setItem('user', JSON.stringify(user))
-}
+// export function saveUserToLocalStorage(user) {
+//   window.localStorage.setItem('user', JSON.stringify(user))
+// }

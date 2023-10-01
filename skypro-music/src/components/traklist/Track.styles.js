@@ -1,4 +1,14 @@
-import { styled } from 'styled-components'
+import  {styled, keyframes, css} from 'styled-components'
+
+export const bubbleOut = keyframes`
+  0%,
+  to {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1);
+  }
+`
 
 export const playlistItem = styled.li`
   width: 100%;
@@ -107,3 +117,16 @@ export const trackTimeText = styled.span`
   text-align: right;
   color: #696969;
 `
+const animationMixin = () => css`
+${bubbleOut} 0.6s ease-in-out infinite both;
+`
+
+export const playingDot = styled.div`
+  width: 16px;
+  height: 16px;
+  background-color: #b672ff;
+  border-radius: 8px;
+  display: block;
+  animation: ${ props => (props.$playing? animationMixin : "")};
+`
+

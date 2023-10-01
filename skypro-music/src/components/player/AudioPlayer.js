@@ -2,26 +2,41 @@
 /* eslint-disable no-alert */
 /* eslint-disable jsx-a11y/media-has-caption */
 import { useRef, useState, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import ButtonSVG from '../buttonSVG/ButtonSVG'
 import { ProgressBar } from './ProgressBar'
 import { VolumeRange } from '../volumeRange/volumeRange'
 import * as S from './Player.styles'
+import {
+  setIsPlaying,
+  setCurrentTruck,
+  toggleShuffle,
+} from '../../store/slices/tracksSlice'
 
-export default function Player({ prop, setTrack }) {
-  const [isPlaying, setIsPlaying] = useState(false)
+export default function Player({ currentTrack, loading }) {
+  const dispatch = useDispatch()
+  const isPlaying = useSelector((state) => state.tracks.isPlaying)
+  const isShuffled = useSelector((state) => state.tracks.shuffled)
+
   const [timeProgress, setTimeProgress] = useState(0)
   const [duration, setDuration] = useState(0)
   const audioRef = useRef()
+
   const handleStart = () => {
     audioRef.current.play()
-    setIsPlaying(true)
   }
   const handleStop = () => {
     audioRef.current.pause()
-    setIsPlaying(false)
   }
-  const togglePlay = isPlaying ? handleStop : handleStart
+  const togglePlay = () => {
+    if (isPlaying) {
+      handleStop()
+    } else {
+      handleStart()
+    }
+    dispatch(setIsPlaying(!isPlaying))
+  }
 
   const onLoadedMetadata = () => {
     setDuration(audioRef.current.duration)
@@ -33,28 +48,26 @@ export default function Player({ prop, setTrack }) {
   const toggleCycling = () => {
     setIsCycled(!isCycled)
     audioRef.current.loop = isCycled
-    // console.log(isCycled)
   }
 
   useEffect(() => {
-    if (prop) {
+    if (currentTrack) {
       handleStart()
       audioRef.current.onended = () => {
-        setTrack(null)
-        setIsPlaying(false)
+        dispatch(setCurrentTruck('next'))
       }
     }
-  }, [prop, setTrack])
+  }, [currentTrack])
 
   return (
     <S.bar>
       <S.barContent>
-        {prop && (
+        {currentTrack && (
           <audio
             ref={audioRef}
             onTimeUpdate={onTimeUpdate}
             onLoadedMetadata={onLoadedMetadata}
-            src={prop.track_file}
+            src={currentTrack.track_file}
           />
         )}
         <ProgressBar {...{ duration, timeProgress, audioRef }} />
@@ -64,7 +77,7 @@ export default function Player({ prop, setTrack }) {
               <ButtonSVG
                 name="prev"
                 click={() => {
-                  alert('Еще не реализовано')
+                  dispatch(setCurrentTruck('prev'))
                 }}
               />
               <ButtonSVG
@@ -74,14 +87,14 @@ export default function Player({ prop, setTrack }) {
               <ButtonSVG
                 name="next"
                 click={() => {
-                  alert('Еще не реализовано')
+                  dispatch(setCurrentTruck('next'))
                 }}
               />
-              <ButtonSVG name="repeat" click={toggleCycling} active />
+              <ButtonSVG name="repeat" click={toggleCycling} />
               <ButtonSVG
                 name="shuffle"
                 click={() => {
-                  alert('Еще не реализовано')
+                  dispatch(toggleShuffle(!isShuffled))
                 }}
               />
             </S.playerControls>
@@ -89,30 +102,30 @@ export default function Player({ prop, setTrack }) {
               <S.trackPlayContain>
                 <SkeletonTheme baseColor="#313131" highlightColor="#444">
                   <S.trackPlayImage>
-                    {prop ? (
+                    {loading ? (
+                      <Skeleton width={50} height={50} />
+                    ) : (
                       <S.trackPlaySvg alt="music">
                         <use xlinkHref="img/icon/sprite.svg#icon-note" />
                       </S.trackPlaySvg>
-                    ) : (
-                      <Skeleton width={50} height={50} />
                     )}
                   </S.trackPlayImage>
                   <S.trackPlayAuthor>
-                    {prop ? (
-                      <S.trackPlayAuthorLink href="http://">
-                        {prop.name}
-                      </S.trackPlayAuthorLink>
+                    {loading ? (
+                      <Skeleton width={59} height={15} />
                     ) : (
-                      <Skeleton width={50} height={15} />
+                      <S.trackPlayAuthorLink href="http://">
+                        {currentTrack.name}
+                      </S.trackPlayAuthorLink>
                     )}
                   </S.trackPlayAuthor>
                   <S.trackPlayAlbum>
-                    {prop ? (
-                      <S.trackPlayAlbumLink href="http://">
-                        {prop.author}
-                      </S.trackPlayAlbumLink>
+                    {loading ? (
+                      <Skeleton width={59} height={15} />
                     ) : (
-                      <Skeleton width={50} height={15} />
+                      <S.trackPlayAlbumLink href="http://">
+                        {currentTrack.author}
+                      </S.trackPlayAlbumLink>
                     )}
                   </S.trackPlayAlbum>
                 </SkeletonTheme>
@@ -143,7 +156,7 @@ export default function Player({ prop, setTrack }) {
               />
               <S.volumeProgress>
                 {/* <S.volumeProgressLine type="range" name="range" /> */}
-                {prop && <VolumeRange audioRef={audioRef} />}
+                {!loading && <VolumeRange audioRef={audioRef} />}
               </S.volumeProgress>
             </S.volumeContent>
           </S.barVolumeBlock>
