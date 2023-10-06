@@ -1,15 +1,21 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { setCurrentPage } from '../../store/slices/tracksSlice'
 import * as S from './NavMenu.styles'
 
 export default function Navigation({logout}) {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   const [visible, setVisible] = useState(false)
   const toggleVisibility = () => setVisible(!visible)
+  
+  
   return (
     <S.mainNav>
-      <S.navLogo as="button" onClick={() => navigate('/', { replace: true })}>
+      <S.navLogo as="button" onClick={() => {navigate('/', { replace: true })
+    dispatch(setCurrentPage('Main'))}}>
         <S.logoImage src="/img/logo.png" alt="logo" />
       </S.navLogo>
       <S.navBurger type="button" onClick={toggleVisibility}>
@@ -23,7 +29,8 @@ export default function Navigation({logout}) {
             <S.menuItem>
               <S.menuLink
                 as="button"
-                onClick={() => navigate('/', { replace: false })}
+                onClick={() => {navigate('/', { replace: true })
+                dispatch(setCurrentPage('Main'))}}
               >
                 Главное
               </S.menuLink>
@@ -31,7 +38,8 @@ export default function Navigation({logout}) {
             <S.menuItem>
               <S.menuLink
                 as="button"
-                onClick={() => navigate('/favorites', { replace: false })}
+                onClick={() => {navigate('/favorites', { replace: false })
+                dispatch(setCurrentPage('Favorites'))}}
               >
                 Мои треки
               </S.menuLink>

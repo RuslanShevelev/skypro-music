@@ -1,4 +1,5 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
+import Layout from "../../pages/layout/Layout";
 
  function ProtectedRoute({  redirectPath = "/login", isAllowed }) {
   // console.log(isAllowed);
@@ -8,7 +9,7 @@ import { Navigate, Outlet } from "react-router-dom";
     return  <Navigate to={redirectPath} replace />;
   }
 
-  return  <Outlet />;
+  return  <Layout />;
 }
 
 export default ProtectedRoute

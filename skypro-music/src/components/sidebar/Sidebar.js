@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import { useContext } from 'react'
 import { NavLink } from 'react-router-dom'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
@@ -6,23 +5,8 @@ import 'react-loading-skeleton/dist/skeleton.css'
 import * as S from './Sidebar.styles'
 import { AuthContext } from '../context/context'
 
-export default function Sidebar({ array, error, logout }) {
+export default function Sidebar({ array, logout, loading }) {
   const { isAuth, isLoading } = useContext(AuthContext)
-  const listItems = array
-    ? array.map((item) => (
-        <S.sidebarItem key={item.id}>
-          <NavLink to={`/category/${item.id}`}>
-            <S.sidebarImg src={item.src} alt="day's playlist" />
-          </NavLink>
-        </S.sidebarItem>
-      ))
-    : Array(3)
-        .fill()
-        .map(() => (
-          <S.sidebarItem key={Math.random()}>
-            <Skeleton />
-          </S.sidebarItem>
-        ))
   return (
     <S.mainSidebar className="sidebar">
       <SkeletonTheme
@@ -42,7 +26,23 @@ export default function Sidebar({ array, error, logout }) {
           </S.sidebarIcon>
         </S.sidebarPersonal>
         <S.sidebarBlock>
-          {!error && <S.sidebarList>{listItems}</S.sidebarList>}
+          <S.sidebarList>
+            {loading
+              ? Array(3)
+                  .fill()
+                  .map(() => (
+                    <S.sidebarItem key={Math.random()}>
+                      <Skeleton />
+                    </S.sidebarItem>
+                  ))
+              : array.map((item) => (
+                  <S.sidebarItem key={item.id}>
+                    <NavLink to={`/category/${item.id}`}>
+                      <S.sidebarImg src={item.src} alt="day's playlist" />
+                    </NavLink>
+                  </S.sidebarItem>
+                ))}
+          </S.sidebarList>
         </S.sidebarBlock>
       </SkeletonTheme>
     </S.mainSidebar>

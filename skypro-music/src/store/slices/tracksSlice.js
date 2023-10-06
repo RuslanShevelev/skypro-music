@@ -1,11 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { authorizedApi } from '../../services/AuthorizedRequestService'
 
 const initialState = {
+  currentPlayList: [],
   allTracks: [],
+  favorites: [],
+  currentPage: 'Main',
   currentTrack: null,
   isPlaying: false,
   shuffled: false,
-  shuffledPlayList: [],
 }
 let currentTrackIndex = null
 const getShuffledPlayList = (array) => {
@@ -21,9 +24,13 @@ export const trackSlice = createSlice({
   name: 'tracksReducer',
   initialState,
   reducers: {
-    setAllTracks: (state, action) => {
-      state.allTracks = action.payload
-      state.shuffledPlayList = action.payload
+    setCurrentPage: (state, action) => {
+      state.currentPage = action.payload
+      if (action.payload === 'Main') {
+        state.currentPlayList = state.allTracks
+      } else if (action.payload === 'Favorites') {
+        state.currentPlayList = state.favorites
+      }
     },
 
     setCurrentTruck: (state, action) => {
@@ -35,15 +42,11 @@ export const trackSlice = createSlice({
       } else if (action.payload === 'prev') {
         currentTrackIndex = Math.max((currentTrackIndex -= 1), 0)
       } else {
-        currentTrackIndex = state.shuffled
-          ? state.shuffledPlayList.findIndex(
-              (track) => track.id === action.payload
-            )
-          : state.allTracks.findIndex((track) => track.id === action.payload)
+        currentTrackIndex = state.currentPlayList.findIndex(
+          (track) => track.id === action.payload
+        )
       }
-      state.currentTrack = state.shuffled
-        ? state.shuffledPlayList[currentTrackIndex]
-        : state.allTracks[currentTrackIndex]
+      state.currentTrack = state.currentPlayList[currentTrackIndex]
       state.isPlaying = true
     },
 
@@ -53,17 +56,38 @@ export const trackSlice = createSlice({
 
     toggleShuffle: (state, action) => {
       state.shuffled = action.payload
-      getShuffledPlayList(state.shuffledPlayList)
-      currentTrackIndex = state.shuffled
-      ? state.shuffledPlayList.findIndex(
-          (track) => track.id === action.payload
-        )
-      : state.allTracks.findIndex((track) => track.id === action.payload)
+      if (state.shuffled) {
+        getShuffledPlayList(state.currentPlayList)
+      }
+      if (!state.shuffled) {
+        if (state.currentPage === 'Main') {
+          state.currentPlayList = state.allTracks
+        } else if (state.currentPage === 'Favorites') {
+          state.currentPlayList = state.favorites
+        }
+      }
     },
+  },
+  extraReducers: (builder) => {
+    builder.addMatcher(
+      authorizedApi.endpoints.fetchAllTrucks.matchFulfilled,
+      (state, { payload }) => {
+        state.allTracks = payload
+        state.currentPlayList = state.allTracks
+        // state.shuffledPlayList = payload
+      }
+    )
+    builder.addMatcher(
+      authorizedApi.endpoints.getFavorites.matchFulfilled,
+      (state, { payload }) => {
+        state.favorites = payload
+        // state.shuffledPlayList = payload
+      }
+    )
   },
 })
 
-export const { setAllTracks, setCurrentTruck, setIsPlaying, toggleShuffle } =
+export const { setCurrentTruck, setIsPlaying, toggleShuffle, setCurrentPage } =
   trackSlice.actions
 
 export default trackSlice.reducer
