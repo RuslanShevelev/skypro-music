@@ -4,8 +4,11 @@ import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
 import 'react-loading-skeleton/dist/skeleton.css'
 import * as S from './Sidebar.styles'
 import { AuthContext } from '../context/context'
+// import { useGetSelectionsQuery } from '../../services/AuthorizedRequestService'
 
 export default function Sidebar({ array, logout, loading }) {
+//   const { data} = useGetSelectionsQuery()
+// console.debug(data)
   const { isAuth, isLoading } = useContext(AuthContext)
   return (
     <S.mainSidebar className="sidebar">
@@ -38,7 +41,7 @@ export default function Sidebar({ array, logout, loading }) {
               : array.map((item) => (
                   <S.sidebarItem key={item.id}>
                     <NavLink to={`/category/${item.id}`}>
-                      <S.sidebarImg src={item.src} alt="day's playlist" />
+                      <S.sidebarImg src={item.src} alt={item.name} />
                     </NavLink>
                   </S.sidebarItem>
                 ))}

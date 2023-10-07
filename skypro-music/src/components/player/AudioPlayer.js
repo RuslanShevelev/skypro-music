@@ -2,7 +2,10 @@
 import { useRef, useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Skeleton, { SkeletonTheme } from 'react-loading-skeleton'
-import { useAddToFavoritesMutation, useRemoveFromFavoritesMutation } from '../../services/AuthorizedRequestService'
+import {
+  useAddToFavoritesMutation,
+  useRemoveFromFavoritesMutation,
+} from '../../services/AuthorizedRequestService'
 import ButtonSVG from '../buttonSVG/ButtonSVG'
 import { ProgressBar } from './ProgressBar'
 import { VolumeRange } from '../volumeRange/volumeRange'
@@ -22,7 +25,9 @@ export default function Player({ currentTrack, loading, isLiked }) {
   const audioRef = useRef()
   const [like] = useAddToFavoritesMutation()
   const [dislike] = useRemoveFromFavoritesMutation()
-  const toggleLike = isLiked? dislike : like
+  
+  const [liked, setLiked] = useState(isLiked)
+  const toggleLike = (id) => {if (liked) {dislike(id)} else {like(id)} setLiked(!liked)}
   const handleStart = () => {
     audioRef.current.play()
   }
@@ -44,10 +49,10 @@ export default function Player({ currentTrack, loading, isLiked }) {
   const onTimeUpdate = () => {
     setTimeProgress(audioRef.current.currentTime)
   }
-  const [isCycled, setIsCycled] = useState(true)
+  const [isCycled, setIsCycled] = useState(false)
   const toggleCycling = () => {
     setIsCycled(!isCycled)
-    audioRef.current.loop = isCycled
+    audioRef.current.loop = !isCycled
   }
   // console.debug(isLiked)
 
@@ -91,12 +96,17 @@ export default function Player({ currentTrack, loading, isLiked }) {
                   dispatch(setCurrentTruck('next'))
                 }}
               />
-              <ButtonSVG name="repeat" click={toggleCycling} />
+              <ButtonSVG
+                name="repeat"
+                click={toggleCycling}
+                isActive={isCycled}
+              />
               <ButtonSVG
                 name="shuffle"
                 click={() => {
                   dispatch(toggleShuffle(!isShuffled))
                 }}
+                isActive={isShuffled}
               />
             </S.playerControls>
             <S.playerTrackPlay>
@@ -133,9 +143,9 @@ export default function Player({ currentTrack, loading, isLiked }) {
               </S.trackPlayContain>
               <S.trackPlayLikeDis>
                 <ButtonSVG
-                  name={isLiked? "dislike" : "like"}
+                  name={isLiked ? 'dislike' : 'like'}
                   click={() => {
-                  toggleLike(currentTrack.id)
+                    toggleLike(currentTrack.id)
                   }}
                 />
                 {/* <ButtonSVG
@@ -165,3 +175,4 @@ export default function Player({ currentTrack, loading, isLiked }) {
     </S.bar>
   )
 }
+

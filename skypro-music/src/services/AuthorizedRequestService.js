@@ -42,7 +42,9 @@ const baseQueryWithReauth = async (args, api, extraOptions) => {
 export const authorizedApi = createApi({
   reducerPath: 'authorizedApi',
   baseQuery: baseQueryWithReauth,
-  tagTypes: ['Tracks', 'Favorites'],
+  tagTypes: ['Tracks', 'Favorites'
+  // , 'Current'
+],
   endpoints: (build) => ({
     fetchAllTrucks: build.query({
       query: () => `catalog/track/all/`,
@@ -64,6 +66,15 @@ export const authorizedApi = createApi({
             ]
           : [{ type: 'Favorites', id: 'LIST' }],
     }),
+    getSelections: build.query({
+      query: (id) => `catalog/selection/${id}/`,
+    }),
+    // getCurrent: build.query({
+    //   query: (id) =>  ({
+    //     url: `catalog/track/${id}`,
+    //     providesTags: ['Current'],
+    // }),}),
+
     addToFavorites: build.mutation({
       query: (id) => ({
         url: `catalog/track/${id}/favorite/`,
@@ -72,6 +83,7 @@ export const authorizedApi = createApi({
       invalidatesTags: [
         { type: 'Favorites', id: 'LIST' },
         { type: 'Tracks', id: 'LIST' },
+        // 'Current'
       ],
     }),
     removeFromFavorites: build.mutation({
@@ -82,6 +94,7 @@ export const authorizedApi = createApi({
       invalidatesTags: [
         { type: 'Favorites', id: 'LIST' },
         { type: 'Tracks', id: 'LIST' },
+        // 'Current'
       ],
     }),
   }),
@@ -92,4 +105,6 @@ export const {
   useGetFavoritesQuery,
   useAddToFavoritesMutation,
   useRemoveFromFavoritesMutation,
+  useGetSelectionsQuery
+  // useGetCurrentQuery
 } = authorizedApi

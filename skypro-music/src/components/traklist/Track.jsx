@@ -55,7 +55,7 @@ export const ListItem = ({ track, current, playing, setCurrent, isLiked }) => {
           </S.trackAlbumLink>
         </S.trackAlbum>
         <S.trackLikeTime>
-          {track ? (
+          {track? (
             <>
               <ButtonSVG click={() => {toggleLike(track.id)}} name="like" modification="tracklike" isActive={isLiked} />
               <S.trackTimeText>

@@ -1,12 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { authorizedApi } from '../../services/AuthorizedRequestService'
 
+
 const initialState = {
   currentPlayList: [],
   allTracks: [],
   favorites: [],
-  currentPage: 'Main',
+  currentPage: '',
   currentTrack: null,
+  // currTrackIsLiked: false,
   isPlaying: false,
   shuffled: false,
 }
@@ -28,8 +30,14 @@ export const trackSlice = createSlice({
       state.currentPage = action.payload
       if (action.payload === 'Main') {
         state.currentPlayList = state.allTracks
-      } else if (action.payload === 'Favorites') {
+      }
+      if (action.payload === 'Favorites') {
         state.currentPlayList = state.favorites
+      }
+      if (state.currentTrack) {
+        currentTrackIndex = state.currentPlayList.findIndex(
+          (track) => track.id === state.currentTrack.id
+        )
       }
     },
 
@@ -47,6 +55,7 @@ export const trackSlice = createSlice({
         )
       }
       state.currentTrack = state.currentPlayList[currentTrackIndex]
+      // state.currTrackIsLiked = (state.currentPage === 'Favorites')? true : state.currentTrack.stared_user?.find((item) => item.id === useStore..id)
       state.isPlaying = true
     },
 
@@ -62,8 +71,14 @@ export const trackSlice = createSlice({
       if (!state.shuffled) {
         if (state.currentPage === 'Main') {
           state.currentPlayList = state.allTracks
-        } else if (state.currentPage === 'Favorites') {
+        }
+        if (state.currentPage === 'Favorites') {
           state.currentPlayList = state.favorites
+        }
+        if (state.currentTrack) {
+          currentTrackIndex = state.currentPlayList.findIndex(
+            (track) => track.id === state.currentTrack.id
+          )
         }
       }
     },
@@ -73,7 +88,7 @@ export const trackSlice = createSlice({
       authorizedApi.endpoints.fetchAllTrucks.matchFulfilled,
       (state, { payload }) => {
         state.allTracks = payload
-        state.currentPlayList = state.allTracks
+        // state.currentPlayList = state.allTracks
         // state.shuffledPlayList = payload
       }
     )
