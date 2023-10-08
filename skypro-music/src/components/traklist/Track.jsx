@@ -10,6 +10,7 @@ export const ListItem = ({ track, current, playing, setCurrent, isLiked }) => {
   const [like] = useAddToFavoritesMutation()
   const [dislike] = useRemoveFromFavoritesMutation()
   const toggleLike = isLiked? dislike : like
+  
   return(
   <S.playlistItem
     onClick={() => {

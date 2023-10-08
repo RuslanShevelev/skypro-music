@@ -20,7 +20,8 @@ export default function Sidebar({ array, logout, loading }) {
       >
         <S.sidebarPersonal>
           <S.sidebarPersonalName>
-            {isLoading ? <Skeleton height={19} width={200} /> : isAuth.username}
+            {isLoading && (<Skeleton height={19} width={200} />)}
+            {isAuth && (isAuth.username)}
           </S.sidebarPersonalName>
           <S.sidebarIcon>
             <svg alt="logout" onClick={logout}>
@@ -30,21 +31,21 @@ export default function Sidebar({ array, logout, loading }) {
         </S.sidebarPersonal>
         <S.sidebarBlock>
           <S.sidebarList>
-            {loading
-              ? Array(3)
+            {loading && (
+              Array(3)
                   .fill()
                   .map(() => (
                     <S.sidebarItem key={Math.random()}>
                       <Skeleton />
                     </S.sidebarItem>
-                  ))
-              : array.map((item) => (
+                  )))}
+{array && (array.map((item) => (
                   <S.sidebarItem key={item.id}>
                     <NavLink to={`/category/${item.id}`}>
                       <S.sidebarImg src={item.src} alt={item.name} />
                     </NavLink>
                   </S.sidebarItem>
-                ))}
+                )))}
           </S.sidebarList>
         </S.sidebarBlock>
       </SkeletonTheme>

@@ -6,6 +6,7 @@ const initialState = {
   currentPlayList: [],
   allTracks: [],
   favorites: [],
+  category: [],
   currentPage: '',
   currentTrack: null,
   // currTrackIsLiked: false,
@@ -28,17 +29,17 @@ export const trackSlice = createSlice({
   reducers: {
     setCurrentPage: (state, action) => {
       state.currentPage = action.payload
-      if (action.payload === 'Main') {
-        state.currentPlayList = state.allTracks
-      }
-      if (action.payload === 'Favorites') {
-        state.currentPlayList = state.favorites
-      }
-      if (state.currentTrack) {
-        currentTrackIndex = state.currentPlayList.findIndex(
-          (track) => track.id === state.currentTrack.id
-        )
-      }
+      // if (action.payload === 'Main') {
+      //   state.currentPlayList = state.allTracks
+      // }
+      // if (action.payload === 'Favorites') {
+      //   state.currentPlayList = state.favorites
+      // }
+      // if (state.currentTrack) {
+      //   currentTrackIndex = state.currentPlayList.findIndex(
+      //     (track) => track.id === state.currentTrack.id
+      //   )
+      // }
     },
 
     setCurrentTruck: (state, action) => {
@@ -50,8 +51,19 @@ export const trackSlice = createSlice({
       } else if (action.payload === 'prev') {
         currentTrackIndex = Math.max((currentTrackIndex -= 1), 0)
       } else {
-        currentTrackIndex = state.currentPlayList.findIndex(
-          (track) => track.id === action.payload
+          if (state.currentPage === 'Main') {
+            state.currentPlayList = state.allTracks
+          }
+          if (state.currentPage === 'Favorites') {
+            state.currentPlayList = state.favorites
+          }
+          if (state.currentPage === 'Category') {
+            state.currentPlayList = state.category
+          }
+
+          currentTrackIndex = state.currentPlayList.findIndex(
+            (track) => track.id === action.payload
+  
         )
       }
       state.currentTrack = state.currentPlayList[currentTrackIndex]
@@ -74,6 +86,9 @@ export const trackSlice = createSlice({
         }
         if (state.currentPage === 'Favorites') {
           state.currentPlayList = state.favorites
+        }
+        if (state.currentPage === 'Category') {
+          state.currentPlayList = state.category
         }
         if (state.currentTrack) {
           currentTrackIndex = state.currentPlayList.findIndex(
@@ -99,6 +114,14 @@ export const trackSlice = createSlice({
         // state.shuffledPlayList = payload
       }
     )
+    builder.addMatcher(
+      authorizedApi.endpoints.getSelections.matchFulfilled,
+      (state, { payload }) => {
+        state.category = payload.items
+        // state.shuffledPlayList = payload
+      }
+    )
+
   },
 })
 

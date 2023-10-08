@@ -28,7 +28,13 @@ const Layout = () => {
           <Outlet />
           <Sidebar logout={logout} array={playLists} loading={isLoading} />
           {(currentTrack || isLoading) && (
-            <Player currentTrack={currentTrack} loading={isLoading} isLiked={currentTrack?.stared_user?.find((item) => item.id === isAuth?.id)}  />
+            <Player
+              currentTrack={currentTrack}
+              loading={isLoading}
+              isLiked={currentTrack?.stared_user?.find(
+                (item) => item.id === isAuth?.id
+              )}
+            />
           )}
         </S.main>
         <footer className="footer" />
