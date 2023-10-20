@@ -2,7 +2,7 @@
 import { useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import TrackList from '../../components/traklist/Tracklist'
-import { useGetFavoritesQuery } from '../../services/AuthorizedRequestService'
+import { useGetFavoritesQuery } from '../../services/appService'
 import { setCurrentPage } from '../../store/slices/tracksSlice'
 
 function Favorites() {
@@ -16,7 +16,7 @@ function Favorites() {
     <>
       <TrackList
         title="Мои треки"
-        tracks={data}
+        allTracks={data}
         error={error}
         isLoading={isLoading}
       />
