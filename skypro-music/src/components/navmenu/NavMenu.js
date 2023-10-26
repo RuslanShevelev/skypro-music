@@ -5,7 +5,7 @@ import * as S from './NavMenu.styles'
 
 export default function Navigation({ logout }) {
   const navigate = useNavigate()
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
   const toggleVisibility = () => setVisible(!visible)
 
   return (

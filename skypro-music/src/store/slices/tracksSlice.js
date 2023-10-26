@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-// import { authorizedApi } from '../../services/appService'
 import { authorizedApi } from '../../services/appService'
 
 const initialState = {
@@ -17,7 +16,6 @@ const initialState = {
   currentPage: '',
   currentTrack: null,
   filter: false,
-  // userId: null,
   currentIsLiked: false,
   isPlaying: false,
   shuffled: false,
@@ -31,7 +29,6 @@ const getShuffledPlayList = (array) => {
     ;[array[i], array[j]] = [array[j], array[i]]
   }
 }
-// eslint-disable-next-line react-hooks/rules-of-hooks
 
 export const trackSlice = createSlice({
   name: 'tracksReducer',
@@ -71,9 +68,7 @@ export const trackSlice = createSlice({
       )
 
       state.currentIsLiked = !!forLiked.stared_user?.find(
-
-        (item) => item.id === state.userId
-
+        (item) => item.id === JSON.parse(localStorage.getItem('auth')).id
       )
     },
 
@@ -209,12 +204,12 @@ export const trackSlice = createSlice({
         state.category = payload.items
       }
     )
-    builder.addMatcher(
-      authorizedApi.endpoints.getRegistration.matchFulfilled,
-      (state, { payload }) => {
-        state.userId = payload.id
-      }
-    )
+    // builder.addMatcher(
+    //   authorizedApi.endpoints.getRegistration.matchFulfilled,
+    //   (state, { payload }) => {
+    //     state.userId = payload.id
+    //   }
+    // )
   },
 })
 
