@@ -14,7 +14,7 @@ const Layout = () => {
   const dispatch = useDispatch()
   const logout = () => {
     dispatch(setAuth(null))
-    navigate('/login', { replace: false })
+    navigate('/skypro-music/login', { replace: false })
     localStorage.removeItem('auth')
   }
   const currentTrack = useSelector((state) => state.tracks.currentTrack)

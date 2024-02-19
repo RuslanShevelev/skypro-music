@@ -12,14 +12,14 @@ const AppRoutes = () => {
   const isAuth = useSelector((state) => state.auth.isAuth)
  
   const element = useRoutes([
-    { path: '/login', element: <SignIn /> },
-    { path: '/signup', element: <SignUp /> },
+    { path: '/skypro-music/login', element: <SignIn /> },
+    { path: '/skypro-music/signup', element: <SignUp /> },
     {
       element: <ProtectedRoute isAllowed={isAuth} />,
       children: [
-        { path: '/', element: <Main /> },
-        { path: '/favorites', element: <Favorites /> },
-        { path: '/category/:id', element: <Categories /> },
+        { path: '/skypro-music/', element: <Main /> },
+        { path: '/skypro-music/favorites', element: <Favorites /> },
+        { path: '/skypro-music/category/:id', element: <Categories /> },
       ],
     },
     { path: '*', element: <NotFound /> },

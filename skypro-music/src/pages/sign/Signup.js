@@ -18,7 +18,7 @@ export const SignUp = () => {
       registerUser({ data: registrationData, url: 'signup' })
     if (result.isSuccess) {
       getTokens(result.originalArgs.data)
-      navigate('/', { replace: true })
+      navigate('/skypro-music/', { replace: true })
     }
   }, [registrationData, result.isSuccess])
 

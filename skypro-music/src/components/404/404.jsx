@@ -33,7 +33,7 @@ export default function Err404() {
         </Styled.ErrorText>
         <Styled.ErrorReturnBtn
           type="button"
-          onClick={() => navigate('/', { replace: false })}
+          onClick={() => navigate('/skypro-music/', { replace: false })}
         >
           Вернуться на главную
         </Styled.ErrorReturnBtn>

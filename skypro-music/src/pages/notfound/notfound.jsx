@@ -12,7 +12,7 @@ export const NotFound = () => {
   const dispatch = useDispatch()
   const logout = () => {
     dispatch(setAuth(null))
-    navigate('/login', { replace: false })
+    navigate('/skypro-music/login', { replace: false })
     localStorage.removeItem('auth')
   }
 

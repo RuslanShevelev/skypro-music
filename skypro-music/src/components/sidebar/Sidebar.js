@@ -18,7 +18,7 @@ export default function Sidebar({ array, logout, loading }) {
           <S.sidebarPersonalName>{userName}</S.sidebarPersonalName>
           <S.sidebarIcon>
             <svg alt="logout" onClick={logout}>
-              <use xlinkHref="/img/icon/sprite.svg#logout" />
+              <use xlinkHref="img/icon/sprite.svg#logout" />
             </svg>
           </S.sidebarIcon>
         </S.sidebarPersonal>
@@ -35,7 +35,7 @@ export default function Sidebar({ array, logout, loading }) {
             {array &&
               array.map((item) => (
                 <S.sidebarItem key={item.id}>
-                  <NavLink to={`/category/${item.id}`}>
+                  <NavLink to={`/skypro-music/category/${item.id}`}>
                     <S.sidebarImg src={item.src} alt={item.name} />
                   </NavLink>
                 </S.sidebarItem>

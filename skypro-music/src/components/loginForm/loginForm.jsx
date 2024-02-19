@@ -137,11 +137,11 @@ export const LoginRegistrationForm = ({
 
   return (
     <S.modalFormLogin action="#">
-      <a href="../">
+      {/* <a href="../"> */}
         <S.modalLogo>
-          <img src="../img/logo_modal.png" alt="logo" />
+          <img src="img/logo_modal.png" alt="logo" />
         </S.modalLogo>
-      </a>
+      {/* </a> */}
       <S.modalInput
         value={email}
         onChange={(e) => emailHandler(e)}
@@ -195,7 +195,7 @@ export const LoginRegistrationForm = ({
         <S.modalBtnSignup
           type="button"
           as="button"
-          onClick={() => navigate('/signup', { replace: false })}
+          onClick={() => navigate('/skypro-music/signup', { replace: false })}
         >
           Зарегистрироваться
         </S.modalBtnSignup>
