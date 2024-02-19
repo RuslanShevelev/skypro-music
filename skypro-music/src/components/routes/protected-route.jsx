@@ -1,7 +1,7 @@
 import { Navigate } from "react-router-dom";
 import Layout from "../../pages/layout/Layout";
 
- function ProtectedRoute({  redirectPath = "/login", isAllowed }) {
+ function ProtectedRoute({  redirectPath = "skypro-music/login", isAllowed }) {
   // console.log(isAllowed);
 
   if (!isAllowed) {

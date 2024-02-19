@@ -13,10 +13,10 @@ export default function Navigation({ logout }) {
       <S.navLogo
         as="button"
         onClick={() => {
-          navigate('/', { replace: true })
+          navigate('/skypro-music/', { replace: true })
         }}
       >
-        <S.logoImage src="/img/logo.png" alt="logo" />
+        <S.logoImage src="img/logo.png" alt="logo" />
       </S.navLogo>
       <S.navBurger type="button" onClick={toggleVisibility}>
         <S.burgerLine />
@@ -30,7 +30,7 @@ export default function Navigation({ logout }) {
               <S.menuLink
                 as="button"
                 onClick={() => {
-                  navigate('/', { replace: true })
+                  navigate('/skypro-music/', { replace: true })
                 }}
               >
                 Главное
@@ -40,7 +40,7 @@ export default function Navigation({ logout }) {
               <S.menuLink
                 as="button"
                 onClick={() => {
-                  navigate('/favorites', { replace: false })
+                  navigate('/skypro-music/favorites', { replace: false })
                 }}
               >
                 Мои треки

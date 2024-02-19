@@ -19,7 +19,7 @@ export default function SignIn() {
     }
     if (result.isSuccess) {
       getTokens(result.originalArgs.data)
-      navigate('/', { replace: true })
+      navigate('/skypro-music/', { replace: true })
     }
   }, [loginData, result.isSuccess])
 
